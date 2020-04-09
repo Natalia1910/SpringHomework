@@ -18,6 +18,16 @@ public class Course {
     @ManyToMany
     private List<Teacher> teachers;
 
+    public Course(String name) {
+        this.name = name;
+    }
+
+    public Course(String name, Date startDate, Date endDate) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public int getId() {
         return id;
     }

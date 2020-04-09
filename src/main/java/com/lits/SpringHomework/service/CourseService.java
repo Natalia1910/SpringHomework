@@ -3,21 +3,30 @@ package com.lits.SpringHomework.service;
 import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.model.Teacher;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CourseService {
 
-    Course create(Course course);
+    Course createCourse(String courseName);
 
-    Course getOne(int id);
+    Course createCourseWithStartAndEndDates(String courseName, Date startDate, Date endDate);
 
-    Course update(int id, String name, Teacher teacher);
+    Course updateCourse(Course course);
 
-    void delete(int id);
+    Course getCourse(Integer id);
 
-    List<Course> getAll();
+    List<Course> getAllCourses();
 
-    Course addTeachersToCourse(int courseID, List<Teacher> teachers);
+    List<Course> getAllCoursesAssignedToTeacher(Teacher teacher);
+
+    Course assignTeacherToCourse(Course course, Teacher teacher);
+
+    Course unassignTeacherFromCourse(Course course, Teacher teacher);
+
+    List<Course> getCoursesWithNumberOfAssignedTeachers(int numberOfTeachers);
+
+    void deleteCourse(Integer courseId);
 
 }
 

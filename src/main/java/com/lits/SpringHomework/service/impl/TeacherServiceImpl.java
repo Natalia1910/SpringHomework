@@ -1,14 +1,15 @@
 package com.lits.SpringHomework.service.impl;
 
 
+import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -21,39 +22,29 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Teacher create(String name, String surname, int age) {
-        return teacherRepository.save(new Teacher(name, surname, age));
+    public Teacher createTeacher(String firstName, String lastName, Integer age) {
+        return teacherRepository.save(new Teacher(firstName, lastName, age));
     }
 
 
     @Override
-    public Teacher getOne(int id) {
-        return teacherRepository.findOneById(id);
+    public Teacher getTeacher(Integer teacherId) {
+        return teacherRepository.findOneById(teacherId);
     }
 
     @Override
-    public Teacher update(int id, String name, String surname) {
-        Teacher teacher = teacherRepository.findOneById(id);
-        teacher.setName(name);
-        teacher.setSurname(surname);
-        return teacherRepository.save(teacher);
+    public List<Teacher> getAllTeachers() {
+        return teacherRepository.findAll();
     }
 
     @Override
-    public void delete(int id) {
-        teacherRepository.deleteById(id);
+    public List<Course> getAllCoursesAssignedToTeacher(Teacher teacher) {
+        return teacherRepository.findOneById(teacher.getId()).getCourses();
     }
 
     @Override
-    public List<Teacher> getAll(String sortBy) {
-        List<Teacher> teachers;
-        if (("age").equals(sortBy)) {
-            Sort sortByAge = Sort.by(sortBy).descending();
-            teachers = teacherRepository.findAll(sortByAge);
-        } else {
-            teachers = teacherRepository.findAll();
-        }
-        return teachers;
+    public void deleteTeacher(Integer teacherId) {
+        teacherRepository.deleteById(teacherId);
     }
 }
 
