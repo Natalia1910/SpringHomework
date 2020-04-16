@@ -2,7 +2,6 @@ package com.lits.SpringHomework.dto;
 
 import com.lits.SpringHomework.model.Course;
 
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

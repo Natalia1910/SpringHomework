@@ -1,5 +1,6 @@
 package com.lits.SpringHomework.service;
 
+import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.model.Teacher;
 
 import java.util.List;
@@ -7,14 +8,14 @@ import java.util.List;
 
 public interface TeacherService {
 
-    Teacher create(String name, String surname, int age);
+    Teacher createTeacher(String firstName, String lastName, Integer age);
 
-    Teacher getOne(int id);
+    Teacher getTeacher(Integer teacherId);
 
-    Teacher update(int id, String name, String surname);
+    List<Teacher> getAllTeachers();
 
-    void delete(int id);
+    List<Course> getAllCoursesAssignedToTeacher(Teacher teacher);
 
-    List<Teacher> getAll(String sortBy);
+    void deleteTeacher(Integer teacherId);
 
 }

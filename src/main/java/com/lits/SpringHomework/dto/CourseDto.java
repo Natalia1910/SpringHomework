@@ -1,5 +1,7 @@
 package com.lits.SpringHomework.dto;
 
+import com.lits.SpringHomework.model.Teacher;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,9 +10,8 @@ public class CourseDto {
     private String name;
     private Date startDate;
     private Date endDate;
-
     private int teacherID;
-    private List<Integer> teachersID;
+    private List<Teacher> teachers;
 
     public int getId() {
         return id;
@@ -52,11 +53,11 @@ public class CourseDto {
         this.teacherID = teacherID;
     }
 
-    public List<Integer> getTeachersID() {
-        return teachersID;
+    public List<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public void setTeachersID(List<Integer> teachersID) {
-        this.teachersID = teachersID;
+    public void setTeachersID(List<Teacher> teachers) {
+        this.teachers = teachers;
     }
 }
