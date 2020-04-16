@@ -2,6 +2,7 @@ package com.lits.SpringHomework.controller;
 
 import com.lits.SpringHomework.dto.TeacherDto;
 import com.lits.SpringHomework.model.Teacher;
+import com.lits.SpringHomework.service.CourseService;
 import com.lits.SpringHomework.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,12 @@ import java.util.List;
 
 @RestController
 public class TeacherController {
-
     private final TeacherService teacherService;
+    private final CourseService courseService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, CourseService courseService) {
         this.teacherService = teacherService;
+        this.courseService = courseService;
     }
 
     @PostMapping("/teacher")
