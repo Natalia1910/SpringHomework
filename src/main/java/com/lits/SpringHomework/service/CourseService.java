@@ -1,32 +1,25 @@
 package com.lits.SpringHomework.service;
 
-import com.lits.SpringHomework.model.Course;
-import com.lits.SpringHomework.model.Teacher;
+import com.lits.SpringHomework.dto.CourseDto;
+import com.lits.SpringHomework.dto.TeacherDto;
 
-import java.util.Date;
 import java.util.List;
 
 public interface CourseService {
+    Long create(CourseDto courseDto);
 
-    Course createCourse(String courseName);
+    CourseDto findOneById(Long id);
 
-    Course createCourseWithStartAndEndDates(String courseName, Date startDate, Date endDate);
+    List<CourseDto> findAll();
 
-    Course updateCourse(Course course);
+    List<CourseDto> findAllCoursesAssignedToTeacher(TeacherDto teacherDto);
 
-    Course getCourse(Integer id);
+    CourseDto assignTeacherToCourse(CourseDto courseDto, TeacherDto teacherDto);
 
-    List<Course> getAllCourses();
+    CourseDto unassignTeacherFromCourse(CourseDto courseDto, TeacherDto teacherDto);
 
-    List<Course> getAllCoursesAssignedToTeacher(Teacher teacher);
+    List<CourseDto> findCoursesWithNumberOfAssignedTeachers(int numberOfTeachers);
 
-    Course assignTeacherToCourse(Course course, Teacher teacher);
-
-    Course unassignTeacherFromCourse(Course course, Teacher teacher);
-
-    List<Course> getCoursesWithNumberOfAssignedTeachers(int numberOfTeachers);
-
-    void deleteCourse(Integer courseId);
-
+    void delete(Long courseId);
 }
 

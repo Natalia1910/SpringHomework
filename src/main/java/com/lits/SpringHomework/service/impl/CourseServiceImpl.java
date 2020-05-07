@@ -1,79 +1,72 @@
 package com.lits.SpringHomework.service.impl;
 
+import com.lits.SpringHomework.dto.CourseDto;
+import com.lits.SpringHomework.dto.TeacherDto;
+import com.lits.SpringHomework.exception.CourseNotFoundException;
 import com.lits.SpringHomework.model.Course;
-import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.repository.CourseRepository;
-import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.CourseService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
+
 
 @Service
 public class CourseServiceImpl implements CourseService {
 
     private final CourseRepository courseRepository;
-    private final TeacherRepository teacherRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, TeacherRepository teacherRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, ModelMapper modelMapper) {
         this.courseRepository = courseRepository;
-        this.teacherRepository = teacherRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public Course createCourse(String course) {
-        return courseRepository.save(new Course(course));
+    public Long create(CourseDto courseDto) {
+        return courseRepository.save(modelMapper.map(courseDto, Course.class)).getId();
     }
 
     @Override
-    public Course createCourseWithStartAndEndDates(String name, Date startDate, Date endDate) {
-        return courseRepository.save(new Course(name, startDate, endDate));
+    public CourseDto findOneById(Long id) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new CourseNotFoundException());
+        return modelMapper.map(course, CourseDto.class);
     }
 
     @Override
-    public Course updateCourse(Course course) {
-        return courseRepository.save(course);
+    public List<CourseDto> findAll() {
+        List<Course> courses = (List<Course>) courseRepository.findAll();
+        return courses.stream().map(c -> modelMapper.map(c, CourseDto.class)).collect(toList());
     }
 
     @Override
-    public Course getCourse(Integer id) {
-        return courseRepository.findOneById(id);
+    public List<CourseDto> findAllCoursesAssignedToTeacher(TeacherDto teacherDto) {
+        return null;
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+    public CourseDto assignTeacherToCourse(CourseDto courseDto, TeacherDto teacherDto) {
+        return null;
     }
 
     @Override
-    public Course assignTeacherToCourse(Course course, Teacher teacher) {
-        course.getTeachers().add(teacher);
-        return courseRepository.save(course);
+    public CourseDto unassignTeacherFromCourse(CourseDto courseDto, TeacherDto teacherDto) {
+        return null;
     }
 
     @Override
-    public Course unassignTeacherFromCourse(Course course, Teacher teacher) {
-        course.getTeachers().remove(teacher);
-        return courseRepository.save(course);
+    public List<CourseDto> findCoursesWithNumberOfAssignedTeachers(int numberOfTeachers) {
+        return null;
     }
 
     @Override
-    public List<Course> getCoursesWithNumberOfAssignedTeachers(int numberOfTeachers) {
-        return getAllCourses().stream().filter(course -> course.getTeachers().size() == numberOfTeachers)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Course> getAllCoursesAssignedToTeacher(Teacher teacher) {
-        return courseRepository.findAllByTeachersContaining(teacher);
-    }
-
-    @Override
-    public void deleteCourse(Integer courseId) {
+    public void delete(Long courseId) {
         courseRepository.deleteById(courseId);
     }
 }
