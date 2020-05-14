@@ -1,6 +1,25 @@
+drop table if exists course
+drop table if exists course_students
+drop table if exists course_teachers
+drop table if exists student
+drop table if exists student_courses
+drop table if exists teacher
+drop table if exists teacher_courses
+
+create table users (
+id bigint not null auto_increment,
+name varchar(255) not null,
+password varchar(255),
+role varchar(255) not null,
+primary key (id))
+
+alter table users drop index UK_3g1j96g94xpk3lpxl2qbl985x
+alter table users add constraint UK_3g1j96g94xpk3lpxl2qbl985x unique (name)
+
 create table course (
 id bigint not null auto_increment,
-end_date datetime, name varchar(255),
+end_date datetime,
+name varchar(255),
 start_date datetime,
 primary key (id));
 
@@ -14,10 +33,9 @@ teachers_id bigint not null);
 
 create table student (
 student_id bigint not null auto_increment,
-age integer not null,
-name_of_group varchar(255),
-student_name varchar(255),
-student_surname varchar(255),
+age integer,
+name varchar(255),
+surname varchar(255),
 primary key (student_id));
 
 create table student_courses (

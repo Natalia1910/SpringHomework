@@ -7,6 +7,5 @@ public class StudentDto {
     private Long id;
     private String studentName;
     private String studentSurname;
-    private String nameOfGroup;
     private int age;
 }

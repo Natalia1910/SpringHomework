@@ -13,4 +13,7 @@ public interface StudentService {
     List<StudentDto> findAll();
 
     void delete(Long studentId);
+
+    int getNumberOfCoursesAssignedToStudent(Long studentId);
+
 }

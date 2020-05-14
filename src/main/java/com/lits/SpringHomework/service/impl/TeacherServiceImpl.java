@@ -4,6 +4,7 @@ import com.lits.SpringHomework.dto.CourseDto;
 import com.lits.SpringHomework.dto.TeacherDto;
 import com.lits.SpringHomework.exception.TeacherNotFoundException;
 import com.lits.SpringHomework.model.Teacher;
+import com.lits.SpringHomework.repository.CourseRepository;
 import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.TeacherService;
 import com.lits.SpringHomework.util.StatusOfCourse;
@@ -19,11 +20,13 @@ import static java.util.stream.Collectors.toList;
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private final CourseRepository courseRepository;
     private  final ModelMapper modelMapper;
 
     @Autowired
-    public TeacherServiceImpl(TeacherRepository teacherRepository, ModelMapper modelMapper) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, CourseRepository courseRepository, ModelMapper modelMapper) {
         this.teacherRepository = teacherRepository;
+        this.courseRepository = courseRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -47,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<TeacherDto> findAllTeachersAssignedToCourse(CourseDto courseDto) {
+    public List<TeacherDto> findAllTeachersAssignedToCourse(Long courseId) {
         return null;
     }
 
@@ -64,6 +67,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void delete(Long teacherId) {
         teacherRepository.deleteById(teacherId);
+    }
+
+    @Override
+    public TeacherDto getTeacherByPhoneNumber(String number) {
+        return null;
     }
 }
 

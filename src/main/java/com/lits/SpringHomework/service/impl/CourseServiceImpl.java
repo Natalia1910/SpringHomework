@@ -69,4 +69,24 @@ public class CourseServiceImpl implements CourseService {
     public void delete(Long courseId) {
         courseRepository.deleteById(courseId);
     }
+
+    @Override
+    public List<CourseDto> findAllCoursesAssignedToStudent(Long studentId) {
+        return null;
+    }
+
+    @Override
+    public List<CourseDto> findAllCoursesWithAssignedTeacherAndStudent(Long teacherId, Long studentId) {
+        return null;
+    }
+
+    @Override
+    public CourseDto assignStudentToCourse(Long courseId, Long studentId) {
+        return null;
+    }
+
+    @Override
+    public CourseDto unassignStudentFromCourse(Long courseId, Long studentId) {
+        return null;
+    }
 }

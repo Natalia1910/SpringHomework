@@ -15,12 +15,14 @@ public interface TeacherService {
 
     List<TeacherDto> findAll();
 
-    List<TeacherDto> findAllTeachersAssignedToCourse(CourseDto courseDto);
+    List<TeacherDto> findAllTeachersAssignedToCourse(Long courseId);
 
     List<CourseDto> findFilteredCourses(StatusOfCourse statusOfCourse);
 
     List<CourseDto> findCoursesThatLast(int numberOfDays);
 
     void delete(Long teacherId);
+
+    TeacherDto getTeacherByPhoneNumber(String number);
 
 }

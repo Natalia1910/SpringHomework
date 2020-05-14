@@ -1,5 +1,7 @@
 package com.lits.SpringHomework.controller;
 
+import com.lits.SpringHomework.annotation.AllPermissions;
+import com.lits.SpringHomework.annotation.IsAdmin;
 import com.lits.SpringHomework.dto.CourseDto;
 import com.lits.SpringHomework.service.CourseService;
 
@@ -10,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/app/courses")
 public class CourseController {
 
     private final CourseService courseService;
@@ -20,22 +22,26 @@ public class CourseController {
     }
 
     @PostMapping
+    @IsAdmin
     @ResponseStatus(HttpStatus.CREATED)
     public Long create(@RequestBody CourseDto courseDto) {
         return courseService.create(courseDto);
     }
 
     @GetMapping("/course/{courseId}")
+    @AllPermissions
     public CourseDto findCourseById(@PathVariable Long courseId){
         return courseService.findOneById(courseId);
     }
 
-    @GetMapping
+    @GetMapping("/course/all")
+    @AllPermissions
     public List<CourseDto> findAll(){
         return courseService.findAll();
     }
 
     @DeleteMapping("/course/delete/{courseId}")
+    @IsAdmin
     public void delete(@PathVariable Long courseId){
         courseService.delete(courseId);
     }

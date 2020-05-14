@@ -45,4 +45,9 @@ public class StudentServiceImpl implements StudentService {
     public void delete(Long studentId) {
         studentRepository.deleteById(studentId);
     }
+
+    @Override
+    public int getNumberOfCoursesAssignedToStudent(Long studentId) {
+        return 0;
+    }
 }

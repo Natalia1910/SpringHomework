@@ -3,6 +3,7 @@ package com.lits.SpringHomework.unit.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.lits.SpringHomework.dto.TeacherDto;
 import com.lits.SpringHomework.model.Teacher;
+import com.lits.SpringHomework.repository.CourseRepository;
 import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.TeacherService;
 import com.lits.SpringHomework.service.impl.TeacherServiceImpl;
@@ -27,9 +28,11 @@ public class TeacherServiceImplTest {
 
     @Mock
     private TeacherRepository teacherRepository;
+    @Mock
+    private CourseRepository courseRepository;
 
     public void init() {
-        teacherService = new TeacherServiceImpl(teacherRepository, new ModelMapper());
+        teacherService = new TeacherServiceImpl(teacherRepository, courseRepository, new ModelMapper());
     }
 
 /*    @Test

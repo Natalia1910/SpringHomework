@@ -12,6 +12,9 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Long> {
+
+    List<Course> findOneById(Long courseId);
+
     List<Course> findAllByTeachersContaining(Teacher teacher);
 
     List<Course> findAllByStartDateGreaterThan(Date date);
