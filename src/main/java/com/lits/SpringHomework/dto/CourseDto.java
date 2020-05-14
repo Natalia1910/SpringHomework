@@ -1,63 +1,20 @@
 package com.lits.SpringHomework.dto;
 
-import com.lits.SpringHomework.model.Teacher;
 
+import lombok.Data;
+
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 import java.util.Date;
-import java.util.List;
-
+@Data
 public class CourseDto {
-    private int id;
+    private Long id;
     private String name;
+
+    @FutureOrPresent
     private Date startDate;
+
+    @PastOrPresent
     private Date endDate;
-    private int teacherID;
-    private List<Teacher> teachers;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getTeacherID() {
-        return teacherID;
-    }
-
-    public void setTeacherID(int teacherID) {
-        this.teacherID = teacherID;
-    }
-
-    public List<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachersID(List<Teacher> teachers) {
-        this.teachers = teachers;
-    }
 }

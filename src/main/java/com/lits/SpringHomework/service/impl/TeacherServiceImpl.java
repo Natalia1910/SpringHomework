@@ -1,49 +1,68 @@
 package com.lits.SpringHomework.service.impl;
 
-
-import com.lits.SpringHomework.model.Course;
+import com.lits.SpringHomework.dto.CourseDto;
+import com.lits.SpringHomework.dto.TeacherDto;
+import com.lits.SpringHomework.exception.TeacherNotFoundException;
 import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.TeacherService;
+import com.lits.SpringHomework.util.StatusOfCourse;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private  final ModelMapper modelMapper;
 
     @Autowired
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, ModelMapper modelMapper) {
         this.teacherRepository = teacherRepository;
-    }
-
-    @Override
-    public Teacher createTeacher(String firstName, String lastName, Integer age) {
-        return teacherRepository.save(new Teacher(firstName, lastName, age));
+        this.modelMapper = modelMapper;
     }
 
 
     @Override
-    public Teacher getTeacher(Integer teacherId) {
-        return teacherRepository.findOneById(teacherId);
+    public Long create(TeacherDto teacherDto) {
+         return teacherRepository.save(modelMapper.map(teacherDto, Teacher.class)).getId();
     }
 
     @Override
-    public List<Teacher> getAllTeachers() {
-        return teacherRepository.findAll();
+    public TeacherDto findOneById(Long id) {
+        Teacher teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new TeacherNotFoundException());
+        return modelMapper.map(teacher, TeacherDto.class);
     }
 
     @Override
-    public List<Course> getAllCoursesAssignedToTeacher(Teacher teacher) {
-        return teacherRepository.findOneById(teacher.getId()).getCourses();
+    public List<TeacherDto> findAll() {
+        List<Teacher> teachers = (List<Teacher>) teacherRepository.findAll();
+        return teachers.stream().map(t -> modelMapper.map(t, TeacherDto.class)).collect(toList());
     }
 
     @Override
-    public void deleteTeacher(Integer teacherId) {
+    public List<TeacherDto> findAllTeachersAssignedToCourse(CourseDto courseDto) {
+        return null;
+    }
+
+    @Override
+    public List<CourseDto> findFilteredCourses(StatusOfCourse statusOfCourse) {
+        return null;
+    }
+
+    @Override
+    public List<CourseDto> findCoursesThatLast(int numberOfDays) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long teacherId) {
         teacherRepository.deleteById(teacherId);
     }
 }

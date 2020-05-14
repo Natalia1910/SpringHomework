@@ -1,0 +1,25 @@
+[{
+  "id": 1,
+  "name": "Tony",
+  "surname": "Stark",
+  "age": 50
+},
+  {
+    "id": 2,
+    "name": "Captain",
+    "surname": "America",
+    "age": 102
+  },
+  {
+    "id": 3,
+    "name": "Peter",
+    "surname": "Parker",
+    "age": 16
+  },
+  {
+    "id": 4,
+    "name": "Black",
+    "surname": "Widow",
+    "age": 35
+  }
+]
