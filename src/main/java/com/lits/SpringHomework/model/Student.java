@@ -12,10 +12,11 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
-
+    @Column(name = "name")
     private String studentName;
+    @Column(name = "surname")
     private String studentSurname;
-    private String nameOfGroup;
+    @Column(name = "age")
     private int age;
 
     @ManyToMany

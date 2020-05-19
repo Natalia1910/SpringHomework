@@ -21,5 +21,13 @@ public interface CourseService {
     List<CourseDto> findCoursesWithNumberOfAssignedTeachers(int numberOfTeachers);
 
     void delete(Long courseId);
+
+    List<CourseDto> findAllCoursesAssignedToStudent(Long studentId);
+
+    List<CourseDto> findAllCoursesWithAssignedTeacherAndStudent(Long teacherId, Long studentId);
+
+    CourseDto assignStudentToCourse(Long courseId, Long studentId);
+
+    CourseDto unassignStudentFromCourse(Long courseId, Long studentId);
 }
 
