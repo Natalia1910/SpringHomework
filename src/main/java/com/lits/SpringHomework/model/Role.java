@@ -1,6 +1,5 @@
 package com.lits.SpringHomework.model;
 
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -11,17 +10,17 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
-    private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
+    private Long userId;
+
+    @OneToMany(fetch = FetchType.EAGER ,mappedBy = "roleId")
     @Fetch(FetchMode.SELECT)
-    public List<Role> role = new ArrayList<>();
-
+    private List<Permission> permissions = new ArrayList<>();
 }

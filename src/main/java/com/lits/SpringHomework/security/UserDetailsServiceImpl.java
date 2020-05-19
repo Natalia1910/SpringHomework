@@ -25,6 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         UserDto login = userService.findByUsername(name);
         return new User(login.getName(), login.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(login.getRole().toString())));
+                Collections.emptyList());
     }
 }

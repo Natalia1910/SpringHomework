@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import static com.lits.SpringHomework.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
     private final UserService userService;
@@ -58,4 +64,5 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
+
 }

@@ -1,13 +1,14 @@
 package com.lits.SpringHomework.dto;
+
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class UserDto {
+public class RoleDto {
     private Long id;
     private String name;
-    private String password;
-    public List<RoleDto> role = new ArrayList<>();
+    private Long userId;
+    private List<PermissionDto> permissions = new ArrayList<>();
 }
