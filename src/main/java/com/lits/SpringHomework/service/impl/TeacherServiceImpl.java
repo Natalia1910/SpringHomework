@@ -1,13 +1,11 @@
 package com.lits.SpringHomework.service.impl;
-
-import com.lits.SpringHomework.dto.CourseDto;
 import com.lits.SpringHomework.dto.TeacherDto;
 import com.lits.SpringHomework.exception.TeacherNotFoundException;
+import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.repository.CourseRepository;
 import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.TeacherService;
-import com.lits.SpringHomework.util.StatusOfCourse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,17 +49,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public List<TeacherDto> findAllTeachersAssignedToCourse(Long courseId) {
-        return null;
-    }
-
-    @Override
-    public List<CourseDto> findFilteredCourses(StatusOfCourse statusOfCourse) {
-        return null;
-    }
-
-    @Override
-    public List<CourseDto> findCoursesThatLast(int numberOfDays) {
-        return null;
+        Course course = (Course) courseRepository.findOneById(courseId);
+        List<Teacher> teacher = teacherRepository.findAllByCoursesContaining(course);
+        return teacher.stream().map(t -> modelMapper.map(t, TeacherDto.class)).collect(toList());
     }
 
     @Override
@@ -71,7 +61,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public TeacherDto getTeacherByPhoneNumber(String number) {
-        return null;
+        Teacher teacher = (Teacher) teacherRepository.findOneByNumber(number);
+        return modelMapper.map(teacher, TeacherDto.class);
     }
 }
 

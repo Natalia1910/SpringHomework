@@ -70,7 +70,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         User user = (User) auth.getPrincipal();
         UserDto userDTO = userService.findByUsername(user.getUsername());
         userDTO.setPassword(null);
-
         com.lits.SpringHomework.model.User userEntity = userRepository.findByName(userDTO.getName()).orElseThrow();
         List<String> permissions = userEntity.getRole().stream().map(Role::getPermissions).flatMap(Collection::stream)
                 .map(Permission::getName).collect(Collectors.toList());

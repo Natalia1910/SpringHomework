@@ -1,7 +1,10 @@
 package com.lits.SpringHomework.unit.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.lits.SpringHomework.annotation.IsTeacherStudentAdmin;
+import com.lits.SpringHomework.dto.CourseDto;
 import com.lits.SpringHomework.dto.TeacherDto;
+import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.repository.CourseRepository;
 import com.lits.SpringHomework.repository.TeacherRepository;
@@ -43,7 +46,8 @@ public class TeacherServiceImplTest {
                         "positive_data.json", new TypeReference<>() {});
         TeacherDto expected = ParseDataUtils.prepareData("unit/service/teacher/create_teacher_positive/" +
                         "result.json", new TypeReference<>() {});
-        Mockito.when(teacherRepository.save(teacher).thenReturn(teacher.getId());
+        Mockito.when(teacherRepository.save(teacher)).thenReturn(expected.getId(), expected.getName());
+        Mockito.when(teacherRepository.save(teacher.getId()).thenReturn(expected.getId());
 
         // Act
         TeacherDto result = teacherService.create();
@@ -87,5 +91,4 @@ public class TeacherServiceImplTest {
         // Assert
         Assertions.assertThat(result).isEqualTo(expected);
     }
-
 }

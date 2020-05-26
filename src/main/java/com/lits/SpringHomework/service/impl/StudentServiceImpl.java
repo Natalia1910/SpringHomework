@@ -26,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Long create(StudentDto studentDto) {
-        return studentRepository.save(modelMapper.map(studentDto, Student.class)).getStudentId();
+        return studentRepository.save(modelMapper.map(studentDto, Student.class)).getId();
     }
 
     @Override
@@ -46,8 +46,4 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(studentId);
     }
 
-    @Override
-    public int getNumberOfCoursesAssignedToStudent(Long studentId) {
-        return 0;
-    }
 }

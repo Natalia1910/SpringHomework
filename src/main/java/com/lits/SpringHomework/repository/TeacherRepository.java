@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface TeacherRepository extends CrudRepository<Teacher, Long> {
+    List<Teacher> findOneById(Long teacherId);
     List<Teacher> findAllByCoursesContaining(Course course);
+    List<Teacher> findOneByNumber(String number);
 }

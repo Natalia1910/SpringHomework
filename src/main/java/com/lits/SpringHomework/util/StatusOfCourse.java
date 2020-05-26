@@ -1,7 +1,7 @@
 package com.lits.SpringHomework.util;
 
 public enum StatusOfCourse {
-    STARTED,
-    ENDED,
+    NOT_STARTED,
+    FINISHED,
     IN_PROCESS
 }
