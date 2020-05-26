@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.lits.SpringHomework.dto.CourseDto;
 import com.lits.SpringHomework.model.Course;
 import com.lits.SpringHomework.repository.CourseRepository;
+import com.lits.SpringHomework.repository.StudentRepository;
+import com.lits.SpringHomework.repository.TeacherRepository;
 import com.lits.SpringHomework.service.CourseService;
 import com.lits.SpringHomework.service.impl.CourseServiceImpl;
 import com.lits.SpringHomework.utils.ParseDataUtils;
@@ -28,8 +30,14 @@ public class CourseServiceImplTest {
     @Mock
     private CourseRepository courseRepository;
 
-    public void init(){
-        courseService = new CourseServiceImpl(courseRepository, new ModelMapper());
+    @Mock
+    private TeacherRepository teacherRepository;
+
+    @Mock
+    private StudentRepository studentRepository;
+
+    public void init() {
+        courseService = new CourseServiceImpl(courseRepository, teacherRepository, studentRepository, new ModelMapper());
     }
 
     @Test
@@ -37,9 +45,11 @@ public class CourseServiceImplTest {
         // Arrange
         init();
         List<Course> courses = ParseDataUtils.prepareData("unit/service/course/find_all_positive/" +
-                "positive_data.json", new TypeReference<>() {});
+                "positive_data.json", new TypeReference<>() {
+        });
         List<CourseDto> expected = ParseDataUtils.prepareData("unit/service/course/find_all_positive/" +
-                "result.json", new TypeReference<>() {});
+                "result.json", new TypeReference<>() {
+        });
         Mockito.when(courseRepository.findAll()).thenReturn(courses);
 
         // Act
@@ -54,9 +64,11 @@ public class CourseServiceImplTest {
         // Arrange
         init();
         Course course = ParseDataUtils.prepareData("unit/service/course/find_one_positive/" +
-                "positive_data.json", new TypeReference<>() {});
+                "positive_data.json", new TypeReference<>() {
+        });
         CourseDto expected = ParseDataUtils.prepareData("unit/service/course/find_one_positive/" +
-                "result.json", new TypeReference<>() {});
+                "result.json", new TypeReference<>() {
+        });
         Mockito.when(courseRepository.findById(eq(1L))).thenReturn(Optional.of(course));
 
         // Act

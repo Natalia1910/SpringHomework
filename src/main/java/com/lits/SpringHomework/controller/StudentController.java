@@ -1,11 +1,9 @@
 package com.lits.SpringHomework.controller;
 
-import com.lits.SpringHomework.annotation.AllPermissions;
-import com.lits.SpringHomework.annotation.IsAdmin;
-import com.lits.SpringHomework.annotation.IsTeacherStudentAdmin;
 import com.lits.SpringHomework.dto.StudentDto;
 import com.lits.SpringHomework.service.StudentService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class StudentController {
     }
 
     @PostMapping
-    @IsAdmin
+    @PreAuthorize("hasAuthority('CREATE_STUDENTS')")
     @ResponseStatus(HttpStatus.CREATED)
     public Long create(@RequestBody StudentDto studentDto) {
         return studentService.create(studentDto);
@@ -29,19 +27,19 @@ public class StudentController {
 
 
     @GetMapping("/student/{studentId}")
-    @IsTeacherStudentAdmin
+    @PreAuthorize("hasAuthority('READ_STUDENTS')")
     public StudentDto findById(@PathVariable Long studentId) {
         return studentService.findOneById(studentId);
     }
 
     @GetMapping("student/all")
-    @IsTeacherStudentAdmin
+    @PreAuthorize("hasAuthority('READ_STUDENTS')")
     public List<StudentDto> findAll() {
         return studentService.findAll();
     }
 
     @DeleteMapping("/student/delete/{studentId}")
-    @IsAdmin
+    @PreAuthorize("hasAuthority('DELETE_STUDENTS')")
     public void delete(@PathVariable Long studentId){
         studentService.delete(studentId);
     }

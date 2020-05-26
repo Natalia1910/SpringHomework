@@ -1,6 +1,5 @@
 package com.lits.SpringHomework.model;
 
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;

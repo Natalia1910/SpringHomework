@@ -1,11 +1,13 @@
 package com.lits.SpringHomework.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Data
+@AllArgsConstructor
 public class TeacherDto {
     private Long id;
 

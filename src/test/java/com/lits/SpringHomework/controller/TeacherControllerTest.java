@@ -3,9 +3,11 @@ package com.lits.SpringHomework.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lits.SpringHomework.dto.TeacherDto;
+import com.lits.SpringHomework.model.Teacher;
 import com.lits.SpringHomework.service.TeacherService;
 import com.lits.SpringHomework.utils.ParseDataUtils;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -13,10 +15,14 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -41,7 +47,7 @@ public class TeacherControllerTest {
         });
         Mockito.when(teacherService.findAll()).thenReturn(expected);
 
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/teachers/teacher/all")).andDo(print())
+        String response = mockMvc.perform(MockMvcRequestBuilders.get("/app/teachers/teacher/all")).andDo(print())
                 .andExpect(status().isFound()).andReturn().getResponse().getContentAsString();
 
         List<TeacherDto> result = objectMapper.readValue(response, new TypeReference<>() {

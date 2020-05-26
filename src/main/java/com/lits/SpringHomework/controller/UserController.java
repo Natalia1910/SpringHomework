@@ -6,6 +6,7 @@ import com.lits.SpringHomework.service.RoleService;
 import com.lits.SpringHomework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,12 +21,6 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping
-    public String ping() {
-
-        return "Hello";
-    }
-
     @PostMapping("/sign-up")
     @ResponseStatus(HttpStatus.CREATED)
     public Long singUp(@RequestBody UserDto userDto) {
@@ -33,6 +28,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
+    @PreAuthorize("hasAuthority('ASSIGN_ROLES_TO_USERS')")
     public UserDto assignRole(@PathVariable Long userId, @RequestBody List<Long> roleIds) {
         List<RoleDto> roleDto = roleService
                 .findRolesWithIds(roleIds)

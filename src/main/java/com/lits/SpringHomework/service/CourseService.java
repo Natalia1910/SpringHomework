@@ -1,26 +1,31 @@
 package com.lits.SpringHomework.service;
 
 import com.lits.SpringHomework.dto.CourseDto;
-import com.lits.SpringHomework.dto.TeacherDto;
+import com.lits.SpringHomework.util.StatusOfCourse;
 
 import java.util.List;
 
 public interface CourseService {
+
     Long create(CourseDto courseDto);
 
     CourseDto findOneById(Long id);
 
     List<CourseDto> findAll();
 
-    List<CourseDto> findAllCoursesAssignedToTeacher(TeacherDto teacherDto);
+    List<CourseDto> getFilteredCourses(StatusOfCourse statusOfCourse);
 
-    CourseDto assignTeacherToCourse(CourseDto courseDto, TeacherDto teacherDto);
+    List<CourseDto> findAllCoursesAssignedToTeacher(Long teacherId);
 
-    CourseDto unassignTeacherFromCourse(CourseDto courseDto, TeacherDto teacherDto);
+    CourseDto assignTeacherToCourse(Long courseId, Long teacherId);
 
-    List<CourseDto> findCoursesWithNumberOfAssignedTeachers(int numberOfTeachers);
+    CourseDto unassignTeacherFromCourse(Long courseId, Long teacherId);
+
+    List<CourseDto> getCoursesThatLast(int numberOfDays);
 
     void delete(Long courseId);
+
+    CourseDto update (CourseDto courseDto);
 
     List<CourseDto> findAllCoursesAssignedToStudent(Long studentId);
 

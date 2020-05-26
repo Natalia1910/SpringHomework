@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 public class CourseDto {
@@ -12,9 +13,8 @@ public class CourseDto {
     private String name;
 
     @FutureOrPresent
-    private Date startDate;
-
+    private LocalDate startDate;
     @PastOrPresent
-    private Date endDate;
+    private LocalDate endDate;
 
 }
