@@ -1,8 +1,10 @@
 package com.lits.SpringHomework.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -11,7 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.lits.SpringHomework.security.SecurityConstants.*;
 
@@ -32,7 +35,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         var authentication = getAuthentication(req);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
@@ -41,13 +43,18 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         var token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.
-            String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
-                    .build()
-                    .verify(token.replace(TOKEN_PREFIX, ""))
-                    .getSubject();
+            DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(SECRET.getBytes())).build()
+                    .verify(token.replace(TOKEN_PREFIX, ""));
+            String username = decodedJWT.getSubject();
+            Long userId = decodedJWT.getClaim(USER_ID_PARAM).asLong();
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            List<SimpleGrantedAuthority> userRole = decodedJWT.getClaim(USER_ROLE_PARAM).asList(String.class)
+                    .stream().map(p -> new SimpleGrantedAuthority(p)).collect(Collectors.toList());
+            if (username != null) {
+                return new UsernamePasswordAuthenticationToken(
+                        username,
+                        userId,
+                        userRole);
             }
             return null;
         }
